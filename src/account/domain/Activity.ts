@@ -1,35 +1,34 @@
 import { AccountId } from './Account';
 import { LocalDateTime } from '@js-joda/core';
 import { Money } from './Money';
-import { timestamp } from 'rxjs';
 
 export class Activity {
-  #id: ActivityId;
+  private readonly _id: ActivityId;
 
   /**
    * The account that owns this activity.
    */
-  readonly #ownerAccountId: AccountId;
+  private readonly _ownerAccountId: AccountId;
 
   /**
    * The debited account.
    */
-  readonly #sourceAccountId: AccountId;
+  private readonly _sourceAccountId: AccountId;
 
   /**
    * The credited account.
    */
-  readonly #targetAccountId: AccountId;
+  private readonly _targetAccountId: AccountId;
 
   /**
    * The timestamp of the activity.
    */
-  readonly #timestamp: LocalDateTime;
+  private readonly _timestamp: LocalDateTime;
 
   /**
    * The money that was transferred between the accounts.
    */
-  readonly #money: Money;
+  private readonly _money: Money;
 
   constructor(
     ownerAccountId: AccountId,
@@ -37,44 +36,53 @@ export class Activity {
     targetAccountId: AccountId,
     timestamp: LocalDateTime,
     money: Money,
+    activityId?: ActivityId,
   ) {
-    this.#id = null;
-    this.#ownerAccountId = ownerAccountId;
-    this.#sourceAccountId = sourceAccountId;
-    this.#targetAccountId = targetAccountId;
-    this.#timestamp = timestamp;
-    this.#money = money;
+    this._id = activityId ?? null;
+    this._ownerAccountId = ownerAccountId;
+    this._sourceAccountId = sourceAccountId;
+    this._targetAccountId = targetAccountId;
+    this._timestamp = timestamp;
+    this._money = money;
   }
 
   get id(): ActivityId {
-    return this.#id;
+    return this._id;
   }
 
   get ownerAccountId(): AccountId {
-    return this.#ownerAccountId;
+    return this._ownerAccountId;
   }
 
   get sourceAccountId(): AccountId {
-    return this.#sourceAccountId;
+    return this._sourceAccountId;
   }
 
   get targetAccountId(): AccountId {
-    return this.#targetAccountId;
+    return this._targetAccountId;
   }
 
   get timestamp(): LocalDateTime {
-    return this.#timestamp;
+    return this._timestamp;
   }
 
   get money(): Money {
-    return this.#money;
+    return this._money;
   }
 }
 
 export class ActivityId {
-  #id: number;
+  private readonly _id: number;
+
+  constructor(id: number) {
+    this._id = id;
+  }
 
   get id(): number {
-    return this.#id;
+    return this._id;
+  }
+
+  equals(other: ActivityId): boolean {
+    return this._id === other.id;
   }
 }

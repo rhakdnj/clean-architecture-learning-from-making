@@ -1,17 +1,17 @@
 export class Money {
-  static readonly ZERO = new Money(0n);
+  static readonly ZERO = new Money(0);
 
-  readonly #amount: bigint;
+  private readonly _amount: number;
 
-  constructor(amount: bigint) {
-    this.#amount = amount;
+  constructor(amount: number) {
+    this._amount = amount;
   }
 
-  get amount(): bigint {
-    return this.#amount;
+  get amount(): number {
+    return this._amount;
   }
 
-  static of(amount: bigint): Money {
+  static of(amount: number): Money {
     return new Money(amount);
   }
 
@@ -24,23 +24,23 @@ export class Money {
   }
 
   isPositiveOrZero(): boolean {
-    return this.#amount >= 0n;
+    return this._amount >= 0n;
   }
 
   isNegative(): boolean {
-    return this.#amount < 0n;
+    return this._amount < 0n;
   }
 
   isPositive(): boolean {
-    return this.#amount > 0n;
+    return this._amount > 0n;
   }
 
   isGreaterThanOrEqualTo(money: Money): boolean {
-    return this.#amount >= money.amount;
+    return this._amount >= money.amount;
   }
 
   isGreaterThan(money: Money): boolean {
-    return this.#amount >= money.amount;
+    return this._amount >= money.amount;
   }
 
   negate(): Money {
