@@ -1,17 +1,14 @@
 import { faker } from '@faker-js/faker'
 import { UserEntity, UserProps } from '@/user/domain/entity/user.entity'
 import { LocalDateTime } from '@js-joda/core'
+import { UserDataBuilder } from '@/user/domain/testing/helper/user-data-builder'
 
 describe('User entity unit tests', () => {
   let props: UserProps
   let sut: UserEntity
 
   beforeEach(() => {
-    props = {
-      name: faker.person.fullName(),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-    }
+    props = UserDataBuilder({})
     sut = new UserEntity(props)
   })
 
