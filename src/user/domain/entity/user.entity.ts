@@ -1,4 +1,5 @@
 import { LocalDateTime } from '@js-joda/core'
+import { Entity } from '@/shared/domain/entity/entity'
 
 export type UserProps = {
   name: string
@@ -7,8 +8,9 @@ export type UserProps = {
   createdAt?: LocalDateTime
 }
 
-export class UserEntity {
-  constructor(public readonly props: UserProps) {
+export class UserEntity extends Entity<UserProps> {
+  constructor(public readonly props: UserProps, id?: string) {
+    super(props, id)
     this.props.createdAt = this.props.createdAt ?? LocalDateTime.now()
   }
 
