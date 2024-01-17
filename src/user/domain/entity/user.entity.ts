@@ -1,6 +1,7 @@
 import { LocalDateTime } from '@js-joda/core'
 import { Entity } from '@/shared/domain/entity/entity'
 import { UserValidatorFactory } from '@/user/domain/validator/user.validator'
+import { EntityValidationError } from '@/shared/domain/error/validation-error'
 
 export type UserProps = {
   name: string
@@ -51,6 +52,10 @@ export class UserEntity extends Entity<UserProps> {
   }
 
   private static validate(props: UserProps) {
-    UserValidatorFactory.create().validate(props)
+    const validator = UserValidatorFactory.create()
+    const isValid = validator.validate(props)
+    if (!isValid) {
+      throw new EntityValidationError(validator.errors)
+    }
   }
 }
