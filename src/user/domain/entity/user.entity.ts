@@ -1,5 +1,6 @@
 import { LocalDateTime } from '@js-joda/core'
 import { Entity } from '@/shared/domain/entity/entity'
+import { UserValidatorFactory } from '@/user/domain/validator/user.validator'
 
 export type UserProps = {
   name: string
@@ -10,6 +11,7 @@ export type UserProps = {
 
 export class UserEntity extends Entity<UserProps> {
   constructor(public readonly props: UserProps, id?: string) {
+    UserEntity.validate(props)
     super(props, id)
     this.props.createdAt = this.props.createdAt ?? LocalDateTime.now()
   }
@@ -44,5 +46,9 @@ export class UserEntity extends Entity<UserProps> {
 
   get createdAt(): LocalDateTime {
     return this.props.createdAt
+  }
+
+  private static validate(props: UserProps) {
+    UserValidatorFactory.create().validate(props)
   }
 }
