@@ -8,7 +8,7 @@ export abstract class ClassValidatorFields<PropsValidated>
   implements ValidatorFieldsInterface<PropsValidated>
 {
   errors: FieldsErrors = null
-  validateData: PropsValidated = null
+  validatedData: PropsValidated = null
 
   public validate(data: any): boolean {
     const errors = validateSync(data)
@@ -19,7 +19,7 @@ export abstract class ClassValidatorFields<PropsValidated>
       })
       return false
     }
-    this.validateData = data
+    this.validatedData = data
     return true
   }
 }
