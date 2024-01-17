@@ -17,6 +17,7 @@ export class UserEntity extends Entity<UserProps> {
   }
 
   updateName(value: string): void {
+    UserEntity.validate({ ...this.props, name: value })
     this.name = value
   }
 
@@ -29,6 +30,7 @@ export class UserEntity extends Entity<UserProps> {
   }
 
   updatePassword(value: string): void {
+    UserEntity.validate({ ...this.props, password: value })
     this.password = value
   }
 

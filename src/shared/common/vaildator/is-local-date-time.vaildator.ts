@@ -23,7 +23,7 @@ export function IsLocalDateTime(validationOptions?: ValidationOptions) {
       target: object.constructor,
       validator: {
         validate: (value: LocalDateTime) => value instanceof LocalDateTime,
-        defaultMessage: () => `${propertyName} must be ISO 8601 format string`,
+        defaultMessage: () => `${propertyName} must be ISO 8601 format`,
       },
     })
   }
