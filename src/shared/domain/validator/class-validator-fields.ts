@@ -1,7 +1,7 @@
 import {
   FieldsErrors,
   ValidatorFieldsInterface,
-} from '@/shared/domain/validator/validator-fields.interface'
+} from './validator-fields.interface'
 import { validateSync } from 'class-validator'
 
 export abstract class ClassValidatorFields<PropsValidated>
@@ -10,16 +10,17 @@ export abstract class ClassValidatorFields<PropsValidated>
   errors: FieldsErrors = null
   validatedData: PropsValidated = null
 
-  public validate(data: any): boolean {
+  validate(data: any): boolean {
     const errors = validateSync(data)
-    if (errors.length > 0) {
-      errors.forEach(error => {
-        const { property, constraints } = error
-        this.errors[property] = Object.values(constraints)
-      })
-      return false
+    if (errors.length) {
+      this.errors = {}
+      for (const error of errors) {
+        const field = error.property
+        this.errors[field] = Object.values(error.constraints)
+      }
+    } else {
+      this.validatedData = data
     }
-    this.validatedData = data
-    return true
+    return !errors.length
   }
 }
