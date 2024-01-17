@@ -9,6 +9,7 @@ import {
 import { UserProps } from '@/user/domain/entity/user.entity'
 import { ClassValidatorFields } from '@/shared/domain/validator/class-validator-fields'
 import { LocalDateTime } from '@js-joda/core'
+import { IsLocalDateTime } from '@/shared/common/vaildator/is-local-date-time.vaildator'
 
 export class UserRules {
   @MaxLength(255)
@@ -28,7 +29,7 @@ export class UserRules {
   password: string
 
   @IsOptional()
-  // TODO: LocalDateTime()
+  @IsLocalDateTime()
   createdAt?: LocalDateTime
 
   constructor({ email, name, password, createdAt }: UserProps) {
