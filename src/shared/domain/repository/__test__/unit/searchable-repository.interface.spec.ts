@@ -1,4 +1,4 @@
-import { SearchParams } from '@/shared/domain/repository/searchable-repository.interface'
+import { SearchParams } from '@/shared/domain/repository/SearchParams'
 
 describe('Searchable Repository unit tests', () => {
   describe('SearchParams tests', () => {
